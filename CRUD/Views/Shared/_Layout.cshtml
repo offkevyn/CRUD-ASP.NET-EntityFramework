@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        body{
+            height: 100%;
+            background-color: rgba(86, 206, 225, 0.250);
+            background-attachment: fixed;
+            background-image: linear-gradient(to bottom right, rgb(86, 206, 225, 0.750), rgba(86, 206, 225, 0.150));
+        }
+        .conteudo
+        {
+            margin-top: 50px;
+            padding: 1rem;
+            background-color: rgb(233, 243, 245);
+            border-radius: 10px;
+        }
+        h1, h2, h3, h4, footer
+        {
+            color: #7400b8;
+        }
+        h2
+        {
+            margin-top: 0;
+        }
+        footer
+        {
+            padding: 0;
+            
+            width: 100%;
+            height: 70px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        footer p
+        {
+            padding-left: 100px;
+        }
+        .navbar
+        {
+            background-color: #02306d;
+        }
+        .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+            color: #48cae4;
+        }
+        .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-brand:hover {
+            color: #aae6f1;
+        }
+        button
+        {
+            width: 100px;
+            height: 35px;
+            
+            background-color: transparent;
+            border-color: #4514A4;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        button a
+        {
+            color: white;
+            font-weight: 700;
+        }
+
+        button:hover
+        {
+            background-color: #4414a452;
+        }
+        button a:hover
+        {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Nome do aplicativo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+            <hr />
+            <p>&copy; @DateTime.Now.Year  - Meu Aplicativo ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

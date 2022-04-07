@@ -1,0 +1,45 @@
+﻿@model CRUD.Models.Cliente
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="conteudo">
+    <h2>Details</h2>
+
+    <div>
+        <h4>Cliente</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.nome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.endereco)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.endereco)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.telefone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.telefone)
+            </dd>
+
+        </dl>
+    </div>
+
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.idCliente }) |
+        @Html.ActionLink("Back to List", "Index", "Home")
+    </p>
+</div>

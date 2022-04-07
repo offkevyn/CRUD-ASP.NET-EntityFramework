@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<br>
+<button>
+    @Html.ActionLink("Novo cliente", "Create", "Cliente")
+</button>
+
+<link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<h1>Clientes</h1>
+
+<div class="conteudo">
+    <table id="myTable" class="table table-striped table-bordered table-hover table-dark"></table>
+</div>
+
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "ajax": {
+                    "url": "api/ClienteAPI",
+                    "type": "GET",
+                    "dataType": "json",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    { "data": "nome", "title": "Nome", "autowidth": true },
+                    { "data": "endereco", "title": "Endereço", "autowidth": true },
+                    { "data": "telefone", "title": "Telefone", "autowidth": true },
+                    {
+                        "title": "Ação",
+                        "mDataProp": function (source, type, val) {
+                            return '<a href="/Cliente/Edit/' + source.idCliente + '">Edit</a> | <a href="/Cliente/Details/' + source.idCliente + '">Details</a> | <a href="/Cliente/Delete/' + source.idCliente + '">Delete</a>'
+
+                        },
+                        "bSortable": false,
+                        "autowidth": true
+                    },
+
+                ],
+            });
+        });
+    </script>
+
+}
