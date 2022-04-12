@@ -10,125 +10,124 @@ using CRUD.Models;
 
 namespace CRUD.Controllers
 {
-    public class ClienteController : Controller
+    public class ProdutoController : Controller
     {
         private CRUDEEntities db = new CRUDEEntities();
 
-        public JsonResult GetCliente()
+        public JsonResult GetProduto()
         {
-            List<Object> listJsonCliente = new List<Object>();
-            
-            foreach (Cliente cliente in db.Cliente.ToList())
+            List<Object> listJsonProduto = new List<Object>();
+
+            foreach (Produto produto in db.Produto.ToList())
             {
-                listJsonCliente.Add(new
+                listJsonProduto.Add(new
                 {
-                    nome = cliente.nome,
-                    endereco = cliente.endereco,
-                    telefone = cliente.telefone,
-                    idCliente = cliente.idCliente
+                    nome = produto.nome,
+                    valor = produto.valor,
+                    idProduto = produto.idProduto
                 });
             }
 
-            return Json(listJsonCliente, JsonRequestBehavior.AllowGet);
+            return Json(listJsonProduto, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Cliente
+        // GET: Produto
         public ActionResult Index()
         {
-            return View(db.Cliente.ToList());
+           return View(db.Produto.ToList());
         }
 
-        // GET: Cliente/Details/5
+        // GET: Produto/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
+            Produto produto = db.Produto.Find(id);
+            if (produto == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(produto);
         }
 
-        // GET: Cliente/Create
+        // GET: Produto/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Produto/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idCliente,nome,endereco,telefone")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "idProduto,nome,valor")] Produto produto)
         {
             if (ModelState.IsValid)
             {
-                db.Cliente.Add(cliente);
+                db.Produto.Add(produto);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cliente);
+            return View(produto);
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Produto/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
+            Produto produto = db.Produto.Find(id);
+            if (produto == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(produto);
         }
 
-        // POST: Cliente/Edit/5
+        // POST: Produto/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idCliente,nome,endereco,telefone")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "idProduto,nome,valor")] Produto produto)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cliente).State = EntityState.Modified;
+                db.Entry(produto).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(cliente);
+            return View(produto);
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Produto/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
+            Produto produto = db.Produto.Find(id);
+            if (produto == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(produto);
         }
 
-        // POST: Cliente/Delete/5
+        // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Cliente.Find(id);
-            db.Cliente.Remove(cliente);
+            Produto produto = db.Produto.Find(id);
+            db.Produto.Remove(produto);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

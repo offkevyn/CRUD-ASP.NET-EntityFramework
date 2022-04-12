@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CRUDEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CRUDEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="idCliente" />
@@ -14,11 +14,88 @@
           <Property Name="endereco" Type="nvarchar" MaxLength="255" />
           <Property Name="telefone" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="ItemVenda">
+          <Key>
+            <PropertyRef Name="idItemVenda" />
+          </Key>
+          <Property Name="idItemVenda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idVenda" Type="int" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="qtd" Type="int" Nullable="false" />
+          <Property Name="valor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="80" />
+          <Property Name="valor" Type="float" />
+        </EntityType>
+        <EntityType Name="Venda">
+          <Key>
+            <PropertyRef Name="idVenda" />
+          </Key>
+          <Property Name="idVenda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCliente" Type="int" Nullable="false" />
+          <Property Name="data" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="valor" Type="float" />
+        </EntityType>
+        <Association Name="FK__ItemVenda__idPro__4F7CD00D">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="ItemVenda" Type="Self.ItemVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="ItemVenda">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVenda__idVen__4E88ABD4">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="1" />
+          <End Role="ItemVenda" Type="Self.ItemVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="idVenda" />
+            </Principal>
+            <Dependent Role="ItemVenda">
+              <PropertyRef Name="idVenda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Venda__idCliente__4BAC3F29">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="CRUDEModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemVenda" EntityType="Self.ItemVenda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venda" EntityType="Self.Venda" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ItemVenda__idPro__4F7CD00D" Association="Self.FK__ItemVenda__idPro__4F7CD00D">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItemVenda" EntitySet="ItemVenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVenda__idVen__4E88ABD4" Association="Self.FK__ItemVenda__idVen__4E88ABD4">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="ItemVenda" EntitySet="ItemVenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Venda__idCliente__4BAC3F29" Association="Self.FK__Venda__idCliente__4BAC3F29">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CRUDEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -30,10 +107,94 @@
           <Property Name="nome" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="endereco" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Venda" Relationship="CRUDEModel.FK__Venda__idCliente__4BAC3F29" FromRole="Cliente" ToRole="Venda" />
         </EntityType>
         <EntityContainer Name="CRUDEEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="ItemVenda" EntityType="CRUDEModel.ItemVenda" />
+          <EntitySet Name="Produto" EntityType="CRUDEModel.Produto" />
+          <EntitySet Name="Venda" EntityType="CRUDEModel.Venda" />
+          <AssociationSet Name="FK__Venda__idCliente__4BAC3F29" Association="CRUDEModel.FK__Venda__idCliente__4BAC3F29">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVenda__idPro__4F7CD00D" Association="CRUDEModel.FK__ItemVenda__idPro__4F7CD00D">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItemVenda" EntitySet="ItemVenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVenda__idVen__4E88ABD4" Association="CRUDEModel.FK__ItemVenda__idVen__4E88ABD4">
+            <End Role="Venda" EntitySet="Venda" />
+            <End Role="ItemVenda" EntitySet="ItemVenda" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ItemVenda">
+          <Key>
+            <PropertyRef Name="idItemVenda" />
+          </Key>
+          <Property Name="idItemVenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idVenda" Type="Int32" Nullable="false" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="qtd" Type="Int32" Nullable="false" />
+          <Property Name="valor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produto" Relationship="CRUDEModel.FK__ItemVenda__idPro__4F7CD00D" FromRole="ItemVenda" ToRole="Produto" />
+          <NavigationProperty Name="Venda" Relationship="CRUDEModel.FK__ItemVenda__idVen__4E88ABD4" FromRole="ItemVenda" ToRole="Venda" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="valor" Type="Double" />
+          <NavigationProperty Name="ItemVenda" Relationship="CRUDEModel.FK__ItemVenda__idPro__4F7CD00D" FromRole="Produto" ToRole="ItemVenda" />
+        </EntityType>
+        <EntityType Name="Venda">
+          <Key>
+            <PropertyRef Name="idVenda" />
+          </Key>
+          <Property Name="idVenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="valor" Type="Double" />
+          <NavigationProperty Name="Cliente" Relationship="CRUDEModel.FK__Venda__idCliente__4BAC3F29" FromRole="Venda" ToRole="Cliente" />
+          <NavigationProperty Name="ItemVenda" Relationship="CRUDEModel.FK__ItemVenda__idVen__4E88ABD4" FromRole="Venda" ToRole="ItemVenda" />
+        </EntityType>
+        <Association Name="FK__Venda__idCliente__4BAC3F29">
+          <End Type="CRUDEModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="CRUDEModel.Venda" Role="Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVenda__idPro__4F7CD00D">
+          <End Type="CRUDEModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="CRUDEModel.ItemVenda" Role="ItemVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="ItemVenda">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVenda__idVen__4E88ABD4">
+          <End Type="CRUDEModel.Venda" Role="Venda" Multiplicity="1" />
+          <End Type="CRUDEModel.ItemVenda" Role="ItemVenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venda">
+              <PropertyRef Name="idVenda" />
+            </Principal>
+            <Dependent Role="ItemVenda">
+              <PropertyRef Name="idVenda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -47,6 +208,36 @@
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="endereco" ColumnName="endereco" />
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemVenda">
+            <EntityTypeMapping TypeName="CRUDEModel.ItemVenda">
+              <MappingFragment StoreEntitySet="ItemVenda">
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="qtd" ColumnName="qtd" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="idVenda" ColumnName="idVenda" />
+                <ScalarProperty Name="idItemVenda" ColumnName="idItemVenda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto">
+            <EntityTypeMapping TypeName="CRUDEModel.Produto">
+              <MappingFragment StoreEntitySet="Produto">
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venda">
+            <EntityTypeMapping TypeName="CRUDEModel.Venda">
+              <MappingFragment StoreEntitySet="Venda">
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idVenda" ColumnName="idVenda" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

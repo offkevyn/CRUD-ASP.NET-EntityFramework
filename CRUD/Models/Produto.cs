@@ -12,20 +12,22 @@ namespace CRUD.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cliente
+    public partial class Produto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cliente()
+        public Produto()
         {
-            this.Venda = new HashSet<Venda>();
+            this.ItemVenda = new HashSet<ItemVenda>();
         }
-    
-        public int idCliente { get; set; }
+
+        private Nullable<double> _valor;
+
+
+        public int idProduto { get; set; }
         public string nome { get; set; }
-        public string endereco { get; set; }
-        public string telefone { get; set; }
+        public Nullable<double> valor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Venda> Venda { get; set; }
+        public virtual ICollection<ItemVenda> ItemVenda { get; set; }
     }
 }

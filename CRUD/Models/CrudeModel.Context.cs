@@ -26,5 +26,8 @@ namespace CRUD.Models
         }
     
         public virtual DbSet<Cliente> Cliente { get; set; }
+        public virtual DbSet<ItemVenda> ItemVenda { get; set; }
+        public virtual DbSet<Produto> Produto { get; set; }
+        public virtual DbSet<Venda> Venda { get; set; }
     }
 }

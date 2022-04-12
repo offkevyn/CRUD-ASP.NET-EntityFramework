@@ -1,18 +1,18 @@
-﻿@{
+﻿@model IEnumerable<CRUD.Models.Produto>
+
+@{
     ViewBag.Title = "Index";
 }
 
+<h2>Index</h2>
+
 <br>
 <button>
-    @Html.ActionLink("Novo cliente", "Create", "Cliente")
+    @Html.ActionLink("Novo produto", "Create", "Produto")
 </button>
 
-<link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-
-<h1>Clientes</h1>
-
 <div class="conteudo">
-    <table id="myTableCliente" class="table table-striped table-bordered table-hover table-dark"></table>
+    <table id="myTableProduto" class="table table-striped table-bordered table-hover table-dark"></table>
 </div>
 
 
@@ -22,21 +22,21 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#myTableCliente').DataTable({
+            $('#myTableProduto').DataTable({
                 "ajax": {
-                    "url": "/Cliente/GetCliente",
+                    "url": "/Produto/GetProduto",
                     "type": "GET",
                     "dataType": "json",
                     "dataSrc": ""
                 },
                 "columns": [
+                    { "data": "idProduto", "title": "ID", "autowidth": true },
                     { "data": "nome", "title": "Nome", "autowidth": true },
-                    { "data": "endereco", "title": "Endereço", "autowidth": true },
-                    { "data": "telefone", "title": "Telefone", "autowidth": true },
+                    { "data": "valor", "title": "Valor", "autowidth": true },
                     {
                         "title": "Ação",
                         "mDataProp": function (source, type, val) {
-                            return '<a href="/Cliente/Edit/' + source.idCliente + '">Edit</a> | <a href="/Cliente/Details/' + source.idCliente + '">Details</a> | <a href="/Cliente/Delete/' + source.idCliente + '">Delete</a>'
+                            return '<a href="/Produto/Edit/' + source.idProduto + '">Edit</a> | <a href="/Produto/Details/' + source.idProduto + '">Details</a> | <a href="/Produto/Delete/' + source.idProduto + '">Delete</a>'
 
                         },
                         "bSortable": false,
