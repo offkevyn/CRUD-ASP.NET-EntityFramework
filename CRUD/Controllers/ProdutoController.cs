@@ -16,14 +16,16 @@ namespace CRUD.Controllers
 
         public JsonResult GetProduto()
         {
+            double valor;
             List<Object> listJsonProduto = new List<Object>();
 
             foreach (Produto produto in db.Produto.ToList())
             {
+                valor = (double) produto.valor;
                 listJsonProduto.Add(new
                 {
                     nome = produto.nome,
-                    valor = produto.valor,
+                    valor = valor.ToString("c2"),
                     idProduto = produto.idProduto
                 });
             }
