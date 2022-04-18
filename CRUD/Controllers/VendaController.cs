@@ -10,125 +10,132 @@ using CRUD.Models;
 
 namespace CRUD.Controllers
 {
-    public class ClienteController : Controller
+    public class VendaController : Controller
     {
         private CRUDEEntities db = new CRUDEEntities();
 
-        public JsonResult GetCliente()
+        public JsonResult GetVenda()
         {
-            List<Object> listJsonCliente = new List<Object>();
-            
-            foreach (Cliente cliente in db.Cliente.ToList())
-            {  
-                listJsonCliente.Add(new
+            List<Object> listJsonVenda = new List<Object>();
+
+            foreach (Venda venda in db.Venda.ToList())
+            {
+                listJsonVenda.Add(new
                 {
-                    nome = cliente.nome,
-                    endereco = cliente.endereco,
-                    telefone = cliente.telefone,
-                    idCliente = cliente.idCliente
+                    idVenda = venda.idVenda,
+                    data = venda.data.ToString("dd/MM/yyyy hh:mm"),
+                    valor = venda.valor,
+                    idCliente = venda.idCliente,
+                    clienteNome = venda.Cliente.nome,
                 });
             }
 
-            return Json(listJsonCliente, JsonRequestBehavior.AllowGet);
+            return Json(listJsonVenda, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Cliente
+        // GET: Venda
         public ActionResult Index()
         {
-            return View(db.Cliente.ToList());
+            var venda = db.Venda.Include(v => v.Cliente);
+            return View(venda.ToList());
         }
 
-        // GET: Cliente/Details/5
+        // GET: Venda/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
+            Venda venda = db.Venda.Find(id);
+            if (venda == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(venda);
         }
 
-        // GET: Cliente/Create
+        // GET: Venda/Create
         public ActionResult Create()
         {
+            ViewBag.idCliente = new SelectList(db.Cliente, "idCliente", "nome");
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Venda/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idCliente,nome,endereco,telefone")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "idVenda,idCliente,data,valor")] Venda venda)
         {
             if (ModelState.IsValid)
             {
-                db.Cliente.Add(cliente);
+                venda.data = DateTime.Now;
+                db.Venda.Add(venda);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cliente);
+            ViewBag.idCliente = new SelectList(db.Cliente, "idCliente", "nome", venda.idCliente);
+            return View(venda);
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Venda/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
+            Venda venda = db.Venda.Find(id);
+            if (venda == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            ViewBag.idCliente = new SelectList(db.Cliente, "idCliente", "nome", venda.idCliente);
+            return View(venda);
         }
 
-        // POST: Cliente/Edit/5
+        // POST: Venda/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idCliente,nome,endereco,telefone")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "idVenda,idCliente,data,valor")] Venda venda)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cliente).State = EntityState.Modified;
+                db.Entry(venda).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(cliente);
+            ViewBag.idCliente = new SelectList(db.Cliente, "idCliente", "nome", venda.idCliente);
+            return View(venda);
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Venda/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Cliente.Find(id);
-            if (cliente == null)
+            Venda venda = db.Venda.Find(id);
+            if (venda == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(venda);
         }
 
-        // POST: Cliente/Delete/5
+        // POST: Venda/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Cliente.Find(id);
-            db.Cliente.Remove(cliente);
+            Venda venda = db.Venda.Find(id);
+            db.Venda.Remove(venda);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

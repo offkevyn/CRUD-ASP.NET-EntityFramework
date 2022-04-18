@@ -19,10 +19,7 @@ namespace CRUD.Models
         {
             this.ItemVenda = new HashSet<ItemVenda>();
         }
-
-        private Nullable<double> _valor;
-
-
+    
         public int idProduto { get; set; }
         public string nome { get; set; }
         public Nullable<double> valor { get; set; }

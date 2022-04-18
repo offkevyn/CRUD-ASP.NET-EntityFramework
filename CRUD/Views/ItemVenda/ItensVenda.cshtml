@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Itens Venda";
+}
+
+<h2>Itens Venda</h2>
+
+<br>
+<button>
+    @Html.ActionLink("Nova venda", "Create", "Venda")
+</button>
+
+<div class="conteudo">
+    <table id="myTableItensVenda" class="table table-striped table-bordered table-hover table-dark"></table>
+</div>
+
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTableItensVenda').DataTable({
+                "ajax": {
+                    "url": "/ItemVenda/GetItensVenda/",
+                    "type": "GET",
+                    "dataType": "json",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    {
+                        "data": "idItemVenda", "title": "ID" + RouteData.Values["id"], "autowidth": true },
+                    { "data": "idVenda", "title": "ID Venda", "autowidth": true },
+                    { "data": "produtoNome", "title": "Produto", "autowidth": true },
+                    { "data": "qtd", "title": "Quantidade", "autowidth": true },
+                    { "data": "valor", "title": "Valor", "autowidth": true },
+                    {
+                        "title": "Ação",
+                        "mDataProp": function (source, type, val) {
+                            return '<a href="/Venda/Edit/' + source.idVenda + '">Edit</a> | <a href="/Venda/Details/' + source.idVenda + '">Details</a> | <a href="/Venda/Delete/' + source.idVenda + '">Delete</a> | <a href="/Venda/Delete/' + source.idVenda + '">Itens</a>'
+
+                        },
+                        "bSortable": false,
+                        "autowidth": true
+                    },
+
+                ],
+            });
+        });
+    </script>
+
+}

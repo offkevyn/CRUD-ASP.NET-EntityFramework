@@ -38,10 +38,10 @@
           </Key>
           <Property Name="idVenda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idCliente" Type="int" Nullable="false" />
-          <Property Name="data" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
           <Property Name="valor" Type="float" />
         </EntityType>
-        <Association Name="FK__ItemVenda__idPro__4F7CD00D">
+        <Association Name="FK__ItemVenda__idPro__5EBF139D">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
           <End Role="ItemVenda" Type="Self.ItemVenda" Multiplicity="*" />
           <ReferentialConstraint>
@@ -53,7 +53,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemVenda__idVen__4E88ABD4">
+        <Association Name="FK__ItemVenda__idVen__70DDC3D8">
           <End Role="Venda" Type="Self.Venda" Multiplicity="1" />
           <End Role="ItemVenda" Type="Self.ItemVenda" Multiplicity="*" />
           <ReferentialConstraint>
@@ -65,7 +65,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venda__idCliente__4BAC3F29">
+        <Association Name="FK__Venda__idCliente__6FE99F9F">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
           <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
           <ReferentialConstraint>
@@ -82,15 +82,15 @@
           <EntitySet Name="ItemVenda" EntityType="Self.ItemVenda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Venda" EntityType="Self.Venda" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ItemVenda__idPro__4F7CD00D" Association="Self.FK__ItemVenda__idPro__4F7CD00D">
+          <AssociationSet Name="FK__ItemVenda__idPro__5EBF139D" Association="Self.FK__ItemVenda__idPro__5EBF139D">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemVenda" EntitySet="ItemVenda" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemVenda__idVen__4E88ABD4" Association="Self.FK__ItemVenda__idVen__4E88ABD4">
+          <AssociationSet Name="FK__ItemVenda__idVen__70DDC3D8" Association="Self.FK__ItemVenda__idVen__70DDC3D8">
             <End Role="Venda" EntitySet="Venda" />
             <End Role="ItemVenda" EntitySet="ItemVenda" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venda__idCliente__4BAC3F29" Association="Self.FK__Venda__idCliente__4BAC3F29">
+          <AssociationSet Name="FK__Venda__idCliente__6FE99F9F" Association="Self.FK__Venda__idCliente__6FE99F9F">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Venda" EntitySet="Venda" />
           </AssociationSet>
@@ -107,22 +107,22 @@
           <Property Name="nome" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="endereco" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Venda" Relationship="CRUDEModel.FK__Venda__idCliente__4BAC3F29" FromRole="Cliente" ToRole="Venda" />
+          <NavigationProperty Name="Venda" Relationship="CRUDEModel.FK__Venda__idCliente__6FE99F9F" FromRole="Cliente" ToRole="Venda" />
         </EntityType>
         <EntityContainer Name="CRUDEEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="ItemVenda" EntityType="CRUDEModel.ItemVenda" />
           <EntitySet Name="Produto" EntityType="CRUDEModel.Produto" />
-          <EntitySet Name="Venda" EntityType="CRUDEModel.Venda" />
-          <AssociationSet Name="FK__Venda__idCliente__4BAC3F29" Association="CRUDEModel.FK__Venda__idCliente__4BAC3F29">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Venda" EntitySet="Venda" />
-          </AssociationSet>
           <AssociationSet Name="FK__ItemVenda__idPro__4F7CD00D" Association="CRUDEModel.FK__ItemVenda__idPro__4F7CD00D">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemVenda" EntitySet="ItemVenda" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemVenda__idVen__4E88ABD4" Association="CRUDEModel.FK__ItemVenda__idVen__4E88ABD4">
+          <EntitySet Name="Venda" EntityType="CRUDEModel.Venda" />
+          <AssociationSet Name="FK__Venda__idCliente__6FE99F9F" Association="CRUDEModel.FK__Venda__idCliente__6FE99F9F">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venda" EntitySet="Venda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemVenda__idVen__70DDC3D8" Association="CRUDEModel.FK__ItemVenda__idVen__70DDC3D8">
             <End Role="Venda" EntitySet="Venda" />
             <End Role="ItemVenda" EntitySet="ItemVenda" />
           </AssociationSet>
@@ -137,7 +137,7 @@
           <Property Name="qtd" Type="Int32" Nullable="false" />
           <Property Name="valor" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Produto" Relationship="CRUDEModel.FK__ItemVenda__idPro__4F7CD00D" FromRole="ItemVenda" ToRole="Produto" />
-          <NavigationProperty Name="Venda" Relationship="CRUDEModel.FK__ItemVenda__idVen__4E88ABD4" FromRole="ItemVenda" ToRole="Venda" />
+          <NavigationProperty Name="Venda" Relationship="CRUDEModel.FK__ItemVenda__idVen__70DDC3D8" FromRole="ItemVenda" ToRole="Venda" />
         </EntityType>
         <EntityType Name="Produto">
           <Key>
@@ -148,29 +148,6 @@
           <Property Name="valor" Type="Double" />
           <NavigationProperty Name="ItemVenda" Relationship="CRUDEModel.FK__ItemVenda__idPro__4F7CD00D" FromRole="Produto" ToRole="ItemVenda" />
         </EntityType>
-        <EntityType Name="Venda">
-          <Key>
-            <PropertyRef Name="idVenda" />
-          </Key>
-          <Property Name="idVenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idCliente" Type="Int32" Nullable="false" />
-          <Property Name="data" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="valor" Type="Double" />
-          <NavigationProperty Name="Cliente" Relationship="CRUDEModel.FK__Venda__idCliente__4BAC3F29" FromRole="Venda" ToRole="Cliente" />
-          <NavigationProperty Name="ItemVenda" Relationship="CRUDEModel.FK__ItemVenda__idVen__4E88ABD4" FromRole="Venda" ToRole="ItemVenda" />
-        </EntityType>
-        <Association Name="FK__Venda__idCliente__4BAC3F29">
-          <End Type="CRUDEModel.Cliente" Role="Cliente" Multiplicity="1" />
-          <End Type="CRUDEModel.Venda" Role="Venda" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="idCliente" />
-            </Principal>
-            <Dependent Role="Venda">
-              <PropertyRef Name="idCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__ItemVenda__idPro__4F7CD00D">
           <End Type="CRUDEModel.Produto" Role="Produto" Multiplicity="1" />
           <End Type="CRUDEModel.ItemVenda" Role="ItemVenda" Multiplicity="*" />
@@ -183,7 +160,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemVenda__idVen__4E88ABD4">
+        <EntityType Name="Venda">
+          <Key>
+            <PropertyRef Name="idVenda" />
+          </Key>
+          <Property Name="idVenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="valor" Type="Double" />
+          <NavigationProperty Name="Cliente" Relationship="CRUDEModel.FK__Venda__idCliente__6FE99F9F" FromRole="Venda" ToRole="Cliente" />
+          <NavigationProperty Name="ItemVenda" Relationship="CRUDEModel.FK__ItemVenda__idVen__70DDC3D8" FromRole="Venda" ToRole="ItemVenda" />
+        </EntityType>
+        <Association Name="FK__Venda__idCliente__6FE99F9F">
+          <End Type="CRUDEModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="CRUDEModel.Venda" Role="Venda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Venda">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemVenda__idVen__70DDC3D8">
           <End Type="CRUDEModel.Venda" Role="Venda" Multiplicity="1" />
           <End Type="CRUDEModel.ItemVenda" Role="ItemVenda" Multiplicity="*" />
           <ReferentialConstraint>

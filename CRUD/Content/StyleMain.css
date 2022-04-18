@@ -1,1 +1,69 @@
-﻿
+﻿body {
+    height: 100%;
+    background-color: rgba(86, 206, 225, 0.250);
+    background-attachment: fixed;
+    background-image: linear-gradient(to bottom right, rgb(86, 206, 225, 0.750), rgba(86, 206, 225, 0.150));
+}
+
+.conteudo {
+    margin-top: 50px;
+    padding: 1rem;
+    background-color: rgb(233, 243, 245);
+    border-radius: 10px;
+}
+
+h1, h2, h3, h4, footer {
+    color: #7400b8;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+footer {
+    padding: 0;
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+    footer p {
+        padding-left: 100px;
+    }
+
+.navbar {
+    background-color: #02306d;
+}
+
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+    color: #48cae4;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-brand:hover {
+        color: #aae6f1;
+    }
+
+button {
+    min-width: 100px;
+    height: 35px;
+    background-color: transparent;
+    border-color: #4514A4;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+    button a {
+        color: white;
+        font-weight: 700;
+    }
+
+    button:hover {
+        background-color: #4414a452;
+    }
+
+    button a:hover {
+        color: white;
+        text-decoration: none;
+    }

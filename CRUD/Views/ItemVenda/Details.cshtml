@@ -1,0 +1,50 @@
+﻿@model CRUD.Models.ItemVenda
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ItemVenda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.qtd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Produto.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produto.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Venda.idVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Venda.idVenda)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idItemVenda }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
