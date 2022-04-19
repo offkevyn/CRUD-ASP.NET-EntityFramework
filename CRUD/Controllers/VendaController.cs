@@ -33,6 +33,24 @@ namespace CRUD.Controllers
             return Json(listJsonVenda, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetVendaId(int? id)
+        {
+            Venda venda = db.Venda.Find(id);
+            if (venda == null)
+            {
+                return Json(new {});
+            }
+            Object vendaJson = new
+            {
+                    idVenda = venda.idVenda,
+                    data = venda.data.ToString("dd/MM/yyyy hh:mm"),
+                    valor = venda.valor,
+                    idCliente = venda.idCliente,
+                    clienteNome = venda.Cliente.nome,
+            };
+            return Json(vendaJson, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Venda
         public ActionResult Index()
         {

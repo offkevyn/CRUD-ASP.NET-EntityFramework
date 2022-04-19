@@ -11,6 +11,7 @@
     @Html.ActionLink("Nova venda", "Create", "Venda")
 </button>
 
+
 <div class="conteudo">
     <table id="myTableVenda" class="table table-striped table-bordered table-hover table-dark"></table>
 </div>
@@ -37,7 +38,7 @@
                     {
                         "title": "Ação",
                         "mDataProp": function (source, type, val) {
-                            return '<a href="/Venda/Edit/' + source.idVenda + '">Edit</a> | <a href="/Venda/Details/' + source.idVenda + '">Details</a> | <a href="/Venda/Delete/' + source.idVenda + '">Delete</a> | <a href="/ItemVenda/ItensVenda/' + source.idVenda + '">Itens</a>'
+                            return '<a href="/Venda/Edit/' + source.idVenda + '">Edit</a> | <a href="/Venda/Details/' + source.idVenda + '">Details</a> | <a href="/Venda/Delete/' + source.idVenda + '">Delete</a> | <a href="/ItemVenda/ItensVenda?idVenda=' + source.idVenda + '">Itens</a>'
 
                         },
                         "bSortable": false,

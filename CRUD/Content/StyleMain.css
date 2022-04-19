@@ -16,6 +16,10 @@ h1, h2, h3, h4, footer {
     color: #7400b8;
 }
 
+div h4 span {
+    color: black;
+}
+
 h2 {
     margin-top: 0;
 }

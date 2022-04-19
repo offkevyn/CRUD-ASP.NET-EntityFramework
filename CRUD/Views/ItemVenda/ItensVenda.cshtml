@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Itens Venda";
 }
 
@@ -6,8 +7,16 @@
 
 <br>
 <button>
-    @Html.ActionLink("Nova venda", "Create", "Venda")
+    @Html.ActionLink("Adicionar item a venda", "Create", "ItemVenda")
 </button>
+<br><br>
+<div>
+    <h4>
+        Venda: <span id="venda"></span>
+        <br>
+        Cliente: <span id="cliente"> </span>
+    </h4>
+</div>
 
 <div class="conteudo">
     <table id="myTableItensVenda" class="table table-striped table-bordered table-hover table-dark"></table>
@@ -19,17 +28,23 @@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript">
+
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var param = url.searchParams.get("idVenda");
+
         $(document).ready(function () {
             $('#myTableItensVenda').DataTable({
                 "ajax": {
-                    "url": "/ItemVenda/GetItensVenda/",
+                    "url": "/ItemVenda/GetItensVenda/" + param,
                     "type": "GET",
                     "dataType": "json",
                     "dataSrc": ""
                 },
                 "columns": [
                     {
-                        "data": "idItemVenda", "title": "ID" + RouteData.Values["id"], "autowidth": true },
+                        "data": "idItemVenda", "title": "ID", "autowidth": true
+                    },
                     { "data": "idVenda", "title": "ID Venda", "autowidth": true },
                     { "data": "produtoNome", "title": "Produto", "autowidth": true },
                     { "data": "qtd", "title": "Quantidade", "autowidth": true },
@@ -45,6 +60,22 @@
                     },
 
                 ],
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: "/Venda/GetVendaId/" + param,
+                dataType: 'json',
+                data: {},
+                success: function (mems) {
+                    $("#cliente").text(mems.clienteNome);
+                    $("#venda").text(mems.idVenda);
+                },
+                error: function (ex) {
+                    alert('Năo foi possível obter dados.');
+                }
             });
         });
     </script>
