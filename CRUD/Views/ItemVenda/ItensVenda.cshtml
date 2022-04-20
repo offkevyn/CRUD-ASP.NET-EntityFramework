@@ -6,8 +6,8 @@
 <h2>Itens Venda</h2>
 
 <br>
-<button>
-    @Html.ActionLink("Adicionar item a venda", "Create", "ItemVenda")
+<button id="btn_novoItem">
+    
 </button>
 <br><br>
 <div>
@@ -72,12 +72,14 @@
                 success: function (mems) {
                     $("#cliente").text(mems.clienteNome);
                     $("#venda").text(mems.idVenda);
+                    $("#btn_novoItem").html('<a href="/ItemVenda/Create/?idVenda=' + mems.idVenda + '">Adicionar item a venda</a>');
                 },
                 error: function (ex) {
                     alert('Năo foi possível obter dados.');
                 }
             });
         });
+
     </script>
 
 }

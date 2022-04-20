@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ItemVenda</h4>
         <hr />
@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.idVenda, "idVenda", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("idVenda", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.idVenda, null, "", new { @class = "form-control", @id = "dpdVenda"})
                 @Html.ValidationMessageFor(model => model.idVenda, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.idProduto, "idProduto", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("idProduto", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.idProduto, null, "Selecione o produto", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.idProduto, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,4 +61,25 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var param = url.searchParams.get("idVenda");
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: "/Venda/GetVendaId/" + param,
+                dataType: 'json',
+                data: {},
+                success: function (mems) {
+                    $("#dpdVenda").val(mems.idVenda);
+                    $("#dpdVenda").prop("disabled", true);
+                },
+                error: function (ex) {
+                    alert('Năo foi possível obter dados.');
+                }
+            });
+        });
+    </script>
 }
