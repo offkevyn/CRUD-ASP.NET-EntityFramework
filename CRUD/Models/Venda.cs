@@ -11,8 +11,7 @@ namespace CRUD.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Venda
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,8 +22,8 @@ namespace CRUD.Models
     
         public int idVenda { get; set; }
         public int idCliente { get; set; }
+        public System.DateTime data { get; set; }
         public Nullable<double> valor { get; set; }
-        public DateTime data { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -8,8 +8,8 @@
 </button>
 
 <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-
 <h1>Clientes</h1>
+
 
 <div class="conteudo">
     <table id="myTableCliente" class="table table-striped table-bordered table-hover table-dark"></table>
@@ -36,7 +36,7 @@
                     {
                         "title": "Ação",
                         "mDataProp": function (source, type, val) {
-                            return '<a href="/Cliente/Edit/' + source.idCliente + '">Edit</a> | <a href="/Cliente/Details/' + source.idCliente + '">Details</a> | <a href="/Cliente/Delete/' + source.idCliente + '">Delete</a>'
+                            return '<a href="/Cliente/Edit/' + source.idCliente + '">Editar</a> | <a href="/Cliente/Details/' + source.idCliente + '">Detalhes</a> | <a href="/Cliente/Delete/' + source.idCliente + '">Deletar</a>'
 
                         },
                         "bSortable": false,

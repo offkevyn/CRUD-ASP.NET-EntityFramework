@@ -26,6 +26,7 @@ namespace CRUD.Controllers
                 {
                     nome = produto.nome,
                     valor = valor.ToString("c2"),
+                    valorFloat = valor,
                     idProduto = produto.idProduto
                 });
             }
@@ -130,6 +131,10 @@ namespace CRUD.Controllers
         {
             Produto produto = db.Produto.Find(id);
             db.Produto.Remove(produto);
+            foreach (ItemVenda item in db.ItemVenda.Where(i => i.idProduto == id).ToList())
+            {
+                db.ItemVenda.Remove(item);
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

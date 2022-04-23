@@ -4,12 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
 <br>
 <button>
     @Html.ActionLink("Novo produto", "Create", "Produto")
 </button>
+
+<h1>Produto</h1>
+
+<link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <div class="conteudo">
     <table id="myTableProduto" class="table table-striped table-bordered table-hover table-dark"></table>
@@ -36,7 +39,7 @@
                     {
                         "title": "Ação",
                         "mDataProp": function (source, type, val) {
-                            return '<a href="/Produto/Edit/' + source.idProduto + '">Edit</a> | <a href="/Produto/Details/' + source.idProduto + '">Details</a> | <a href="/Produto/Delete/' + source.idProduto + '">Delete</a>'
+                            return '<a href="/Produto/Edit/' + source.idProduto + '">Editar</a> | <a href="/Produto/Details/' + source.idProduto + '">Detalhes</a> | <a href="/Produto/Delete/' + source.idProduto + '">Deletar</a>'
 
                         },
                         "bSortable": false,

@@ -4,13 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
 <br>
 <button>
     @Html.ActionLink("Nova venda", "Create", "Venda")
 </button>
 
+<h1>Venda</h1>
+
+<link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <div class="conteudo">
     <table id="myTableVenda" class="table table-striped table-bordered table-hover table-dark"></table>
@@ -34,12 +36,12 @@
                     { "data": "idVenda", "title": "ID", "autowidth": true },
                     { "data": "clienteNome", "title": "Cliente", "autowidth": true },
                     { "data": "data", "title": "Data - Hora criação", "autowidth": true },
-                    { "data": "valor", "title": "Valor", "autowidth": true },
+                    { "data": "qtdItens", "title": "Quantidade de itens", "autowidth": true },
+                    { "data": "valor", "title": "Valor total", "autowidth": true },
                     {
                         "title": "Ação",
                         "mDataProp": function (source, type, val) {
-                            return '<a href="/Venda/Edit/' + source.idVenda + '">Edit</a> | <a href="/Venda/Details/' + source.idVenda + '">Details</a> | <a href="/Venda/Delete/' + source.idVenda + '">Delete</a> | <a href="/ItemVenda/ItensVenda?idVenda=' + source.idVenda + '">Itens</a>'
-
+                            return '<a href="/Venda/Details/' + source.idVenda + '">Detalhes</a> | <a href="/Venda/Delete/' + source.idVenda + '">Deletar</a> | <a href="/ItemVenda/ItensVenda?idVenda=' + source.idVenda + '">Itens</a>'
                         },
                         "bSortable": false,
                         "autowidth": true

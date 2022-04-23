@@ -22,7 +22,7 @@
           <Property Name="idVenda" Type="int" Nullable="false" />
           <Property Name="idProduto" Type="int" Nullable="false" />
           <Property Name="qtd" Type="int" Nullable="false" />
-          <Property Name="valor" Type="int" Nullable="false" />
+          <Property Name="valor" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Produto">
           <Key>
@@ -53,8 +53,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemVenda__idVen__70DDC3D8">
-          <End Role="Venda" Type="Self.Venda" Multiplicity="1" />
+        <Association Name="FK__ItemVenda__idVen__02084FDA">
+          <End Role="Venda" Type="Self.Venda" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ItemVenda" Type="Self.ItemVenda" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Venda">
@@ -65,8 +67,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Venda__idCliente__6FE99F9F">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+        <Association Name="FK__Venda__idCliente__01142BA1">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
@@ -86,11 +90,11 @@
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemVenda" EntitySet="ItemVenda" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemVenda__idVen__70DDC3D8" Association="Self.FK__ItemVenda__idVen__70DDC3D8">
+          <AssociationSet Name="FK__ItemVenda__idVen__02084FDA" Association="Self.FK__ItemVenda__idVen__02084FDA">
             <End Role="Venda" EntitySet="Venda" />
             <End Role="ItemVenda" EntitySet="ItemVenda" />
           </AssociationSet>
-          <AssociationSet Name="FK__Venda__idCliente__6FE99F9F" Association="Self.FK__Venda__idCliente__6FE99F9F">
+          <AssociationSet Name="FK__Venda__idCliente__01142BA1" Association="Self.FK__Venda__idCliente__01142BA1">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Venda" EntitySet="Venda" />
           </AssociationSet>

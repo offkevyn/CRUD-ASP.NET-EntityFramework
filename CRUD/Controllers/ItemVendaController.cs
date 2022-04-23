@@ -14,12 +14,22 @@ namespace CRUD.Controllers
     {
         private CRUDEEntities db = new CRUDEEntities();
 
+        private void atualizaTotalVenda(int idVenda)
+        {
+            Venda venda = db.Venda.Find(idVenda);
+            venda.valor = db.ItemVenda.Where(i => i.idVenda == idVenda).Sum(i => (int?)i.valor) ?? 0;
+            db.Entry(venda).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
         public JsonResult GetItensVenda(int? id)
         {
+            double valor;
             List<Object> listJsonItemVenda = new List<Object>();
 
             foreach (ItemVenda item in db.ItemVenda.Where(i => i.idVenda == id).ToList())
             {
+                valor = (double)item.valor;
                 listJsonItemVenda.Add(new
                 {
                     idItemVenda = item.idItemVenda,
@@ -27,7 +37,8 @@ namespace CRUD.Controllers
                     idProduto = item.idProduto,
                     produtoNome = item.Produto.nome,
                     qtd = item.qtd,
-                    valor = item.valor
+                    valor = valor.ToString("c2"),
+                    valorFloat = valor,
                 });
             }
 
@@ -75,7 +86,9 @@ namespace CRUD.Controllers
             {
                 db.ItemVenda.Add(itemVenda);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                atualizaTotalVenda(itemVenda.idVenda);
+                //return RedirectToAction("Index");
+                return Redirect("/ItemVenda/ItensVenda?idVenda=" + itemVenda.idVenda);
             }
 
             ViewBag.idProduto = new SelectList(db.Produto, "idProduto", "nome", itemVenda.idProduto);
@@ -111,7 +124,9 @@ namespace CRUD.Controllers
             {
                 db.Entry(itemVenda).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                atualizaTotalVenda(itemVenda.idVenda);               
+                //return RedirectToAction("Index");
+                return Redirect("/ItemVenda/ItensVenda?idVenda=" + itemVenda.idVenda);
             }
             ViewBag.idProduto = new SelectList(db.Produto, "idProduto", "nome", itemVenda.idProduto);
             ViewBag.idVenda = new SelectList(db.Venda, "idVenda", "idVenda", itemVenda.idVenda);
@@ -141,7 +156,9 @@ namespace CRUD.Controllers
             ItemVenda itemVenda = db.ItemVenda.Find(id);
             db.ItemVenda.Remove(itemVenda);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            atualizaTotalVenda(itemVenda.idVenda);
+            //return RedirectToAction("Index");
+            return Redirect("/ItemVenda/ItensVenda?idVenda=" + itemVenda.idVenda);
         }
 
         protected override void Dispose(bool disposing)

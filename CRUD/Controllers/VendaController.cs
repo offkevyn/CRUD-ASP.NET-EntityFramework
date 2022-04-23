@@ -18,15 +18,22 @@ namespace CRUD.Controllers
         {
             List<Object> listJsonVenda = new List<Object>();
 
+            int qtd_itens;
+            double valor;
+
             foreach (Venda venda in db.Venda.ToList())
             {
+                qtd_itens = db.ItemVenda.Where(i => i.idVenda == venda.idVenda).Sum(i => (int?)i.qtd) ?? 0;
+                valor = venda.valor != null ? (double)venda.valor : 0;
                 listJsonVenda.Add(new
                 {
                     idVenda = venda.idVenda,
                     data = venda.data.ToString("dd/MM/yyyy hh:mm"),
-                    valor = venda.valor,
+                    valor = valor.ToString("c2"),
+                    valorFloat = valor,
                     idCliente = venda.idCliente,
                     clienteNome = venda.Cliente.nome,
+                    qtdItens = qtd_itens,
                 });
             }
 

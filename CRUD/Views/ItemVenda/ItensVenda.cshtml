@@ -3,13 +3,17 @@
     ViewBag.Title = "Itens Venda";
 }
 
-<h2>Itens Venda</h2>
+
 
 <br>
 <button id="btn_novoItem">
     
 </button>
 <br><br>
+
+<link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<h1>Itens Venda</h1>
+
 <div>
     <h4>
         Venda: <span id="venda"></span>
@@ -52,7 +56,7 @@
                     {
                         "title": "Ação",
                         "mDataProp": function (source, type, val) {
-                            return '<a href="/Venda/Edit/' + source.idVenda + '">Edit</a> | <a href="/Venda/Details/' + source.idVenda + '">Details</a> | <a href="/Venda/Delete/' + source.idVenda + '">Delete</a> | <a href="/Venda/Delete/' + source.idVenda + '">Itens</a>'
+                            return '<a href="/ItemVenda/Edit/' + source.idItemVenda + '">Editar</a> | <a href="/ItemVenda/Details/' + source.idItemVenda + '">Detalhes</a> | <a href="/ItemVenda/Delete/' + source.idItemVenda + '">Deletar</a>'
 
                         },
                         "bSortable": false,
